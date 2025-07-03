@@ -5,7 +5,7 @@ import Profile from "./pages/Profile";
 
 const App = () => {
   return (
-    <div className="container">
+    <div className="App">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
