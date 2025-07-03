@@ -1,0 +1,110 @@
+.userProfileContainer {
+  color: #fff;
+  position: relative;
+  overflow-y: scroll;
+  width: 100%;
+  background-color: rgba(129, 133, 178, 0.1);
+}
+
+.userProfileContainer {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.userProfileContainer::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.userProfileWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 300;
+  padding-top: 4rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.userProfileImage {
+  width: 5rem;
+  aspect-ratio: 1 / 1;
+  border-radius: 9999px;
+}
+
+.selectedUserName {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.userBio {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* USER MEDIA */
+
+.userMediaWrapper {
+  padding-left: 1.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.userMedia {
+  margin-top: 0.5rem;
+  max-height: 200px;
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  opacity: 0.8;
+}
+
+.userMediaImage {
+  height: 100px;
+  border-radius: 0.375rem;
+  margin-bottom: 0.5rem;
+}
+
+/* LOGOUT BUTTON */
+
+.logOutBtn {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: linear-gradient(to right, #c084fc, #7c3aed);
+  background-size: 200% 100%;
+  background-position: left center;
+  color: #ffffff;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 300;
+  padding: 0.5rem 5rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-position 0.4s ease;
+}
+.logOutBtn:hover {
+  background-position: right center;
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 767px) {
+  .notDisplay {
+    display: none;
+  }
+}
