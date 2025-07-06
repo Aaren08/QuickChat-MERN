@@ -1,0 +1,128 @@
+.loginPage {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  backdrop-filter: blur(40px);
+}
+
+.leftLoginImage {
+  width: min(30vw, 250px);
+}
+
+/* LOGIN FORM */
+
+.loginForm {
+  border: 2px solid #6b7280;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.loginForm h2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.loginForm img {
+  width: 1.25rem;
+  cursor: pointer;
+}
+
+.loginForm #fullName,
+.loginForm #email,
+.loginForm #password,
+.loginForm #bio {
+  padding: 0.5rem;
+  border: 1px solid #6b7280;
+  background: transparent;
+  border-radius: 0.375rem;
+  outline: none;
+}
+.loginForm #fullName:focus,
+.loginForm #email:focus,
+.loginForm #password:focus,
+.loginForm #bio:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #6366f1;
+}
+
+.loginForm .togglePasswordIcon {
+  position: relative;
+  transform: translate(88%, -250%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.loginForm .togglePasswordIcon > svg {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.loginForm .formBtn {
+  margin-top: -16%;
+  cursor: pointer;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  background-image: linear-gradient(to right, #c084fc, #7c3aed);
+  color: white;
+  border-radius: 0.375rem;
+  border: none;
+}
+
+.loginForm .terms {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #6b7280;
+}
+
+.loginForm .conditionalAuth {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.loginForm .conditionalAuth p {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #618dc5;
+}
+
+.loginForm .conditionalAuth span {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* MEDIA QUERIES */
+
+@media (min-width: 640px) {
+  .loginPage {
+    justify-content: space-evenly;
+  }
+}
+
+@media (max-width: 639px) {
+  .loginPage {
+    flex-direction: column;
+  }
+}
