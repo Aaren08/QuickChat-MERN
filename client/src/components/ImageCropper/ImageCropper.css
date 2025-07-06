@@ -1,0 +1,20 @@
+.image-cropper {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: #000;
+  border: 1px solid #fff;
+  border-radius: 0.5rem;
+}
+
+.cropBtn {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  background-image: linear-gradient(to right, #c084fc, #7c3aed);
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
