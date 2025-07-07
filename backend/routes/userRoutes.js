@@ -5,7 +5,7 @@ import {
   updateUserProfile,
   isUserAuthenticated,
 } from "../controllers/userController.js";
-import { protectRoute } from "../middleware/authMiddleware.js";
+import { protectRoute } from "../middleware/auth.js";
 
 const userRouter = express.Router();
 

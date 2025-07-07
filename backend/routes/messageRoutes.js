@@ -5,11 +5,11 @@ import {
   getAllUsers,
   markMessageAsSeen,
 } from "../controllers/messageController.js";
-import { protectRoute } from "../middleware/authMiddleware.js";
+import { protectRoute } from "../middleware/auth.js";
 
 const messageRouter = express.Router();
 
-messageRouter.route("/sendMessage").post(protectRoute, sendMessage);
+messageRouter.route("/send/:id").post(protectRoute, sendMessage);
 messageRouter.route("/:id").get(protectRoute, getAllMessages);
 messageRouter.route("/users").get(protectRoute, getAllUsers);
 messageRouter.route("/mark/:id").put(protectRoute, markMessageAsSeen);
