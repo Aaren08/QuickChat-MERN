@@ -12,6 +12,6 @@ const userRouter = express.Router();
 userRouter.route("/signUp").post(signUpUser);
 userRouter.route("/logIn").post(logInUser);
 userRouter.route("/updateProfile").put(protectRoute, updateUserProfile);
-userRouter.route("/updateProfile").get(protectRoute, isUserAuthenticated);
+userRouter.route("/check").get(protectRoute, isUserAuthenticated);
 
 export default userRouter;
