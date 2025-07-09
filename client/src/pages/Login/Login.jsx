@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
+import AuthContext from "../../../context/authContext.js";
 import assets from "../../assets/assets.js";
 import "./Login.css";
 
@@ -12,6 +13,8 @@ const Login = () => {
   const [bio, setBio] = useState("");
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
 
+  const { login } = useContext(AuthContext);
+
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
@@ -19,6 +22,13 @@ const Login = () => {
       setIsDataSubmitted(true);
       return;
     }
+
+    login(currentState === "Sign Up" ? "signUp" : "logIn", {
+      fullName,
+      email,
+      password,
+      bio,
+    });
   };
 
   return (

@@ -32,7 +32,7 @@ const ImageCropper = ({ imageSrc, onComplete }) => {
         onCropComplete={onCropComplete}
       />
       <button onClick={handleDone} className="cropBtn">
-        Crop Image
+        Set Image
       </button>
     </div>
   );

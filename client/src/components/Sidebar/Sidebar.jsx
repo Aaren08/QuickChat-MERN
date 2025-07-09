@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../../../context/authContext.js";
 import assets, { userDummyData } from "../../assets/assets.js";
 import "./Sidebar.css";
 
 const Sidebar = ({ selectedUser, setSelectedUser }) => {
+  const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
     <div className={`sidebar-container ${selectedUser ? "shouldHide" : ""}`}>
@@ -21,7 +24,7 @@ const Sidebar = ({ selectedUser, setSelectedUser }) => {
             <div className="subMenu">
               <p onClick={() => navigate("/profile")}>Edit Profile</p>
               <hr className="subMenuDivider" />
-              <p>Logout</p>
+              <p onClick={() => logout()}>Logout</p>
             </div>
           </div>
         </div>

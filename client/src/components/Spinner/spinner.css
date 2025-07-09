@@ -1,0 +1,35 @@
+.spinner-icon {
+  display: inline-block;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin: auto;
+  position: relative;
+  inset: 0 0 0 0;
+  color: #ffffffd8;
+  fill: #000;
+  animation: spin 1s linear infinite;
+}
+
+@media (prefers-color-scheme: dark) {
+  .spinner-icon {
+    color: #4b5563; /* dark:text-gray-600 */
+    fill: #d1d5db; /* dark:fill-gray-300 */
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

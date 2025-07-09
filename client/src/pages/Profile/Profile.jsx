@@ -1,22 +1,53 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import ImageCropper from "../../components/ImageCropper/ImageCropper";
+import AuthContext from "../../../context/authContext.js";
 import assets from "../../assets/assets.js";
+import Spinner from "../../components/Spinner/spinner.jsx";
 import "./Profile.css";
 
 const Profile = () => {
+  const { authUser, updateUserProfile } = useContext(AuthContext);
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const [showCropper, setShowCropper] = useState(false);
-  const [name, setName] = useState("Martin Johnson");
-  const [bio, setBio] = useState("Hi Everyone, I am Using QuickChat");
+  const [croppedImageUrl, setCroppedImageUrl] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState(authUser.fullName);
+  const [bio, setBio] = useState(authUser.bio);
 
   const navigate = useNavigate();
 
   // function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/");
+    setLoading(true); // start spinner
+
+    try {
+      if (!croppedImage) {
+        await updateUserProfile({ fullName: name, bio });
+        navigate("/");
+        return;
+      }
+      const base64Image = await readFileAsDataURL(croppedImage);
+      await updateUserProfile({ fullName: name, bio, profilePic: base64Image });
+      navigate("/");
+    } catch (err) {
+      console.error("Profile update failed", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // function to read file as data URL that can be sent to the server
+  const readFileAsDataURL = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
   };
 
   const handleFileChange = (e) => {
@@ -28,7 +59,8 @@ const Profile = () => {
   };
 
   const handleCropComplete = (blob) => {
-    setCroppedImage(URL.createObjectURL(blob));
+    setCroppedImage(blob);
+    setCroppedImageUrl(URL.createObjectURL(blob));
     setShowCropper(false);
   };
 
@@ -49,7 +81,7 @@ const Profile = () => {
             <img
               src={
                 croppedImage
-                  ? croppedImage
+                  ? croppedImageUrl
                   : selectedImage
                   ? selectedImage
                   : assets.avatar_icon
@@ -77,8 +109,17 @@ const Profile = () => {
             onChange={(e) => setBio(e.target.value)}
           ></textarea>
 
-          <button type="submit" className="formSubmitBtn">
-            Save
+          <button type="submit" className="formSubmitBtn" disabled={loading}>
+            {loading ? (
+              <>
+                Saving...
+                <span className="spinnerWrapper">
+                  <Spinner />
+                </span>
+              </>
+            ) : (
+              "Save"
+            )}
           </button>
         </form>
 
@@ -92,7 +133,11 @@ const Profile = () => {
         )}
 
         {/* RIGHT */}
-        <img src={assets.logo_icon} alt="image" className="appLogo" />
+        <img
+          src={authUser?.profilePic || assets.logo_icon}
+          alt="image"
+          className="appLogo"
+        />
       </div>
     </div>
   );
