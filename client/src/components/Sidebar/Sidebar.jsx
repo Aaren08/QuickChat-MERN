@@ -1,11 +1,33 @@
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import AuthContext from "../../../context/authContext.js";
-import assets, { userDummyData } from "../../assets/assets.js";
+import ChatContext from "../../../context/ChatContext.js";
+import assets from "../../assets/assets.js";
 import "./Sidebar.css";
 
-const Sidebar = ({ selectedUser, setSelectedUser }) => {
-  const { logout } = useContext(AuthContext);
+const Sidebar = () => {
+  const {
+    getAllUsers,
+    users,
+    selectedUser,
+    setSelectedUser,
+    unSeenMessages,
+    setUnseenMessages,
+  } = useContext(ChatContext);
+  const { logout, onlineUsers } = useContext(AuthContext);
+
+  const [input, setInput] = useState(false);
+
+  const filteredUsers = input
+    ? users.filter((user) =>
+        user.fullName.toLowerCase().includes(input.toLowerCase())
+      )
+    : users;
+
+  useEffect(() => {
+    getAllUsers();
+  }, [onlineUsers, getAllUsers]);
+
   const navigate = useNavigate();
   return (
     <div className={`sidebar-container ${selectedUser ? "shouldHide" : ""}`}>
@@ -37,14 +59,19 @@ const Sidebar = ({ selectedUser, setSelectedUser }) => {
             alt="search"
             style={{ width: "0.75rem" }}
           />
-          <input type="text" className="search" placeholder="Search User..." />
+          <input
+            type="text"
+            className="search"
+            placeholder="Search User..."
+            onChange={(e) => setInput(e.target.value)}
+          />
         </div>
       </div>
 
       {/* USER LIST */}
 
       <div className="userList">
-        {userDummyData.map((user, index) => (
+        {filteredUsers.map((user, index) => (
           <div
             key={index}
             onClick={() => setSelectedUser(user)}
@@ -59,7 +86,7 @@ const Sidebar = ({ selectedUser, setSelectedUser }) => {
             {/* USER NAME & MESSAGES */}
             <div className="userName">
               <p>{user?.fullName}</p>
-              {index < 3 ? (
+              {onlineUsers.includes(user._id) ? (
                 <span className="online">Online</span>
               ) : (
                 <span className="offline">Offline</span>
@@ -67,7 +94,9 @@ const Sidebar = ({ selectedUser, setSelectedUser }) => {
             </div>
 
             {/* MESSAGE STATUS */}
-            {index > 2 && <p className="messageStatus">{index}</p>}
+            {unSeenMessages[user._id] > 0 && (
+              <p className="messageStatus">{unSeenMessages[user._id]}</p>
+            )}
           </div>
         ))}
       </div>
