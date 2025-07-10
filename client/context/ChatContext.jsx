@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import AuthContext from "./authContext.js";
-import ChatContext from "./ChatContext";
+import ChatContext from "./chatContext.js";
 import toast from "react-hot-toast";
 
 export const ChatProvider = ({ children }) => {

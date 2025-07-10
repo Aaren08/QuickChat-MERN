@@ -1,10 +1,44 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext, useState } from "react";
+import { toast } from "react-hot-toast";
 import assets, { messagesDummyData } from "../../assets/assets";
-import "./chatContainer.css";
+import ChatContext from "../../../context/chatContext.js";
+import AuthContext from "../../../context/authContext.js";
 import { formatMessageTime } from "../../lib/utils";
+import "./chatContainer.css";
 
-const ChatContainer = ({ selectedUser, setSelectedUser }) => {
+const ChatContainer = () => {
+  const { authUser, onlineUsers } = useContext(AuthContext);
+  const { messages, selectedUser, setSelectedUser, sendMessage, getMessages } =
+    useContext(ChatContext);
+
+  const [input, setInput] = useState("");
   const scrollEnd = useRef();
+
+  // Function to send message
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    if (input.trim() === "") return null;
+    await sendMessage({
+      text: input.trim(),
+    });
+    setInput("");
+  };
+
+  // Function to send an image in a chat
+  const handleSendImage = async (e) => {
+    e.preventDefault();
+    const imageFile = e.target.files[0];
+    if (!imageFile || !imageFile.type.startsWith("image/")) {
+      toast.error("Please select an image file.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      await sendMessage({ image: reader.result });
+      e.target.value = "";
+    };
+    reader.readAsDataURL(imageFile);
+  };
 
   useEffect(() => {
     scrollEnd.current?.scrollIntoView({ behavior: "smooth" });
@@ -82,8 +116,17 @@ const ChatContainer = ({ selectedUser, setSelectedUser }) => {
             type="text"
             placeholder="Send a message"
             className="inputBar"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => (e.key === "Enter" ? handleSendMessage(e) : null)}
           />
-          <input type="file" id="image" accept="image/*" hidden />
+          <input
+            onChange={handleSendImage}
+            type="file"
+            id="image"
+            accept="image/*"
+            hidden
+          />
           <label htmlFor="image">
             <img
               src={assets.gallery_icon}
@@ -92,7 +135,12 @@ const ChatContainer = ({ selectedUser, setSelectedUser }) => {
             />
           </label>
         </div>
-        <img src={assets.send_button} alt="image" className="sendMessageIcon" />
+        <img
+          onClick={handleSendMessage}
+          src={assets.send_button}
+          alt="image"
+          className="sendMessageIcon"
+        />
       </div>
     </div>
   ) : (
