@@ -1,7 +1,22 @@
-import assets, { imagesDummyData } from "../../assets/assets.js";
+import { useContext, useEffect, useState } from "react";
+import ChatContext from "../../../context/chatContext.js";
+import AuthContext from "../../../context/authContext.js";
+import assets from "../../assets/assets.js";
 import "./RightSidebar.css";
 
-const RightSidebar = ({ selectedUser }) => {
+const RightSidebar = () => {
+  const { selectedUser, messages } = useContext(ChatContext);
+  const { logout, onlineUsers } = useContext(AuthContext);
+
+  const [messageImages, setMessageImages] = useState([]);
+
+  // Get all images from images present in chat and set them to state
+  useEffect(() => {
+    setMessageImages(
+      messages.filter((index) => index?.image).map((index) => index.image)
+    );
+  }, [messages]);
+
   return (
     selectedUser && (
       <div
@@ -15,7 +30,9 @@ const RightSidebar = ({ selectedUser }) => {
             className="userProfileImage"
           />
           <h1 className="selectedUserName">
-            <p className="connectionIndicator"></p>
+            {onlineUsers?.includes(selectedUser?._id) && (
+              <p className="connectionIndicator"></p>
+            )}
             {selectedUser?.fullName}
           </h1>
 
@@ -28,7 +45,7 @@ const RightSidebar = ({ selectedUser }) => {
         <div className="userMediaWrapper">
           <p>Media</p>
           <div className="userMedia">
-            {imagesDummyData.map((url, index) => (
+            {messageImages.map((url, index) => (
               <div
                 key={index}
                 style={{
@@ -44,7 +61,9 @@ const RightSidebar = ({ selectedUser }) => {
         </div>
 
         {/* LOGOUT */}
-        <button className="logOutBtn">Logout</button>
+        <button onClick={() => logout()} className="logOutBtn">
+          Logout
+        </button>
       </div>
     )
   );

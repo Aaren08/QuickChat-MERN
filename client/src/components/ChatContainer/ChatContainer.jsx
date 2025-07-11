@@ -63,8 +63,9 @@ const ChatContainer = () => {
         />
         <p>
           {selectedUser.fullName}
-          {onlineUsers.includes(selectedUser._id)}
-          <span className="connectionIndicator"></span>
+          {onlineUsers.includes(selectedUser._id) && (
+            <span className="connectionIndicator"></span>
+          )}
         </p>
 
         {/* INFO ICON & ADD ICON */}
