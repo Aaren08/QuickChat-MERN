@@ -94,13 +94,13 @@ export const sendMessage = async (req, res) => {
     });
 
     // Emit the new message to the receiver's socket
-    const receiverSocket = onlineUsers.get(req.params.id);
+    const receiverSocket = onlineUsers[req.params.id];
     if (receiverSocket) {
       io.to(receiverSocket).emit("newMessage", newMessage);
     }
 
     // Emit the new message to the sender's socket
-    const senderSocket = onlineUsers.get(req.user._id);
+    const senderSocket = onlineUsers[req.user._id];
     if (senderSocket) {
       io.to(senderSocket).emit("newMessage", newMessage);
     }

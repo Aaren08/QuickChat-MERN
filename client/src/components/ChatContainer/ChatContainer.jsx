@@ -1,9 +1,9 @@
 import { useEffect, useRef, useContext, useState } from "react";
 import { toast } from "react-hot-toast";
-import assets, { messagesDummyData } from "../../assets/assets";
+import assets from "../../assets/assets.js";
 import ChatContext from "../../../context/chatContext.js";
 import AuthContext from "../../../context/authContext.js";
-import { formatMessageTime } from "../../lib/utils";
+import { formatMessageTime } from "../../lib/utils.js";
 import "./chatContainer.css";
 
 const ChatContainer = () => {
@@ -41,16 +41,29 @@ const ChatContainer = () => {
   };
 
   useEffect(() => {
-    scrollEnd.current?.scrollIntoView({ behavior: "smooth" });
-  }, [selectedUser]);
+    if (selectedUser) {
+      getMessages(selectedUser._id);
+    }
+  }, [selectedUser, getMessages]);
+
+  useEffect(() => {
+    if (scrollEnd.current && messages) {
+      scrollEnd.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   return selectedUser ? (
     <div className="chatContainer">
       {/* HEADER */}
       <div className="headerContent">
-        <img src={assets.profile_martin} alt="image" className="avatar" />
+        <img
+          src={selectedUser.profilePic || assets.avatar_icon}
+          alt="image"
+          className="avatar"
+        />
         <p>
-          Martin Johnson
+          {selectedUser.fullName}
+          {onlineUsers.includes(selectedUser._id)}
           <span className="connectionIndicator"></span>
         </p>
 
@@ -67,39 +80,39 @@ const ChatContainer = () => {
 
       {/* MESSAGING AREA */}
       <div className="messagesContainer">
-        {messagesDummyData.map((message, index) => (
+        {messages.map((message, index) => (
           <div
             key={index}
             className={`conversation ${
-              message.senderId !== "680f50e4f10f3cd28382ecf9" && "msg-received"
+              message?.sender !== authUser._id && "msg-received"
             }`}
           >
-            {message.image ? (
+            {message?.image ? (
               <img src={message.image} alt="image" className="inChatImage" />
             ) : (
               <p
                 className={`userMessage ${
-                  message.senderId !== "680f50e4f10f3cd28382ecf9"
-                    ? "userMessageReceived"
-                    : "userMessageSent"
+                  message?.sender === authUser._id
+                    ? "userMessageSent"
+                    : "userMessageReceived"
                 }`}
               >
-                {message.text}
+                {message?.text}
               </p>
             )}
 
-            {/* MESSAGE TIME */}
+            {/* MESSAGE TIME & USER AVATAR*/}
             <div className="messageTime">
               <img
                 src={
-                  message.senderId === "680f50e4f10f3cd28382ecf9"
-                    ? assets.avatar_icon
-                    : assets.profile_martin
+                  message?.sender === authUser._id
+                    ? authUser?.profilePic || assets.avatar_icon
+                    : selectedUser?.profilePic || assets.avatar_icon
                 }
                 alt="image"
               />
               <p style={{ color: "#6b7280" }}>
-                {formatMessageTime(message.createdAt)}
+                {formatMessageTime(message?.createdAt)}
               </p>
             </div>
           </div>

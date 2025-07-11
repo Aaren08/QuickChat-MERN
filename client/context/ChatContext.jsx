@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 import AuthContext from "./authContext.js";
 import ChatContext from "./chatContext.js";
 import toast from "react-hot-toast";
@@ -12,7 +12,7 @@ export const ChatProvider = ({ children }) => {
   const { socket, axios } = useContext(AuthContext);
 
   // Function to get all users for sidebar
-  const getAllUsers = async () => {
+  const getAllUsers = useCallback(async () => {
     try {
       const { data } = await axios.get("/api/messages/users");
       setUsers(data.users);
@@ -21,7 +21,7 @@ export const ChatProvider = ({ children }) => {
       toast.error(error.message);
       console.error("Error fetching users:", error);
     }
-  };
+  }, [axios]);
 
   // Function to get messages for the selected user
   const getMessages = async (userId) => {
@@ -56,13 +56,16 @@ export const ChatProvider = ({ children }) => {
       socket.on("newMessage", (newMessage) => {
         if (selectedUser && newMessage.sender === selectedUser._id) {
           newMessage.seen = true;
-          setMessages((prevMessages) => [...prevMessages, newMessage]);
+          setMessages((prevMessages) => {
+            const updated = [...prevMessages, newMessage];
+            return updated;
+          });
           axios.put(`/api/messages/mark/${newMessage._id}`);
         } else {
           setUnseenMessages((prevUnseenMessages) => ({
             ...prevUnseenMessages,
-            [newMessage.sender]: prevUnseenMessages[newMessage.senderId]
-              ? prevUnseenMessages[newMessage.senderId] + 1
+            [newMessage.sender]: prevUnseenMessages[newMessage.sender]
+              ? prevUnseenMessages[newMessage.sender] + 1
               : 1,
           }));
         }
@@ -86,6 +89,7 @@ export const ChatProvider = ({ children }) => {
     users,
     selectedUser,
     unSeenMessages,
+    setUnseenMessages,
     setSelectedUser,
     getAllUsers,
     setMessages,
