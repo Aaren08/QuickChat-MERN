@@ -28,10 +28,25 @@ io.on("connection", (socket) => {
 
   if (userId) {
     onlineUsers[userId] = socket.id;
+    socket.join(userId); // user joins their own room for direct messages
   }
 
   // Emit online users to all connected clients
   io.emit("getOnlineUsers", Object.keys(onlineUsers));
+
+  // Listen for typing event and send to the target user only
+  socket.on("typing", ({ from, to }) => {
+    if (onlineUsers[to]) {
+      io.to(to).emit("typing", { from });
+    }
+  });
+
+  // If user stops typing, tell the receiver they are back to "Online"
+  socket.on("stop typing", ({ from, to }) => {
+    if (onlineUsers[to]) {
+      io.to(to).emit("Online", { from }); // ← key change here
+    }
+  });
 
   socket.on("disconnect", () => {
     console.log("A user disconnected", userId);

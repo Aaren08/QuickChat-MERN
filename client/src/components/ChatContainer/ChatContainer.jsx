@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast";
 import assets from "../../assets/assets.js";
 import ChatContext from "../../../context/chatContext.js";
 import AuthContext from "../../../context/authContext.js";
+import TypingContext from "../../../context/typingContext.js";
 import { formatMessageTime } from "../../lib/utils.js";
 import "./chatContainer.css";
 
@@ -10,6 +11,7 @@ const ChatContainer = () => {
   const { authUser, onlineUsers } = useContext(AuthContext);
   const { messages, selectedUser, setSelectedUser, sendMessage, getMessages } =
     useContext(ChatContext);
+  const { emitTyping } = useContext(TypingContext);
 
   const [input, setInput] = useState("");
   const scrollEnd = useRef();
@@ -38,6 +40,14 @@ const ChatContainer = () => {
       e.target.value = "";
     };
     reader.readAsDataURL(imageFile);
+  };
+
+  // Function to handle typing indication
+  const handleTyping = (e) => {
+    setInput(e.target.value);
+    if (selectedUser?._id) {
+      emitTyping(selectedUser._id);
+    }
   };
 
   useEffect(() => {
@@ -131,7 +141,7 @@ const ChatContainer = () => {
             placeholder="Send a message"
             className="inputBar"
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={handleTyping}
             onKeyDown={(e) => (e.key === "Enter" ? handleSendMessage(e) : null)}
           />
           <input

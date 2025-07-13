@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import AuthContext from "../../../context/authContext.js";
 import ChatContext from "../../../context/chatContext.js";
+import TypingContext from "../../../context/typingContext.js";
 import assets from "../../assets/assets.js";
 import "./Sidebar.css";
 
@@ -15,6 +16,7 @@ const Sidebar = () => {
     setUnseenMessages,
   } = useContext(ChatContext);
   const { logout, onlineUsers } = useContext(AuthContext);
+  const { typingUsers } = useContext(TypingContext);
 
   const [input, setInput] = useState(false);
 
@@ -86,10 +88,12 @@ const Sidebar = () => {
               className="profilePic"
             />
 
-            {/* USER NAME & MESSAGES */}
+            {/* USER NAME & CONNECTION STATUS */}
             <div className="userName">
               <p>{user?.fullName}</p>
-              {onlineUsers.includes(user._id) ? (
+              {typingUsers[user._id] ? (
+                <span className="typing">typing...</span>
+              ) : onlineUsers.includes(user._id) ? (
                 <span className="online">Online</span>
               ) : (
                 <span className="offline">Offline</span>
