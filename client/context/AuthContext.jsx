@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
         connectSocket(data.user);
       }
     } catch (error) {
-      toast.error(error.message);
+      console.error(error.message);
     }
   }, [setAuthUser, connectSocket]);
 
@@ -99,8 +99,8 @@ export const AuthProvider = ({ children }) => {
       } else {
         toast.error("Profile update failed");
       }
-    } catch (error) {
-      toast.error(error.message);
+    } catch {
+      toast.error("Profile update failed");
     }
   };
 

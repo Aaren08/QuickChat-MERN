@@ -1,9 +1,9 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import ImageCropper from "../../components/ImageCropper/ImageCropper";
+import ImageCropper from "../../utilities/ImageCropper/ImageCropper.jsx";
 import AuthContext from "../../../context/authContext.js";
 import assets from "../../assets/assets.js";
-import Spinner from "../../components/Spinner/spinner.jsx";
+import Spinner from "../../utilities/Spinner/Spinner.jsx";
 import "./Profile.css";
 
 const Profile = () => {
