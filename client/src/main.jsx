@@ -3,17 +3,20 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "../context/AuthContext.jsx";
 import { ChatProvider } from "../context/ChatContext.jsx";
 import { TypingProvider } from "../context/TypingContext.jsx";
+import { ThemeProvider } from "../context/ThemeContext.jsx";
 import "./index.css";
 import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <AuthProvider>
-      <ChatProvider>
-        <TypingProvider>
-          <App />
-        </TypingProvider>
-      </ChatProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <ChatProvider>
+          <TypingProvider>
+            <App />
+          </TypingProvider>
+        </ChatProvider>
+      </AuthProvider>
+    </ThemeProvider>
   </BrowserRouter>
 );

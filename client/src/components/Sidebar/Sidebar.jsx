@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import AuthContext from "../../../context/authContext.js";
 import ChatContext from "../../../context/chatContext.js";
 import TypingContext from "../../../context/typingContext.js";
+import ThemeContext from "../../../context/themeContext.js";
 import assets from "../../assets/assets.js";
 import "./Sidebar.css";
 
@@ -17,8 +18,10 @@ const Sidebar = () => {
   } = useContext(ChatContext);
   const { logout, onlineUsers } = useContext(AuthContext);
   const { typingUsers } = useContext(TypingContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const [input, setInput] = useState(false);
+  const navigate = useNavigate();
 
   const filteredUsers = input
     ? users.filter((user) =>
@@ -30,23 +33,22 @@ const Sidebar = () => {
     getAllUsers();
   }, [onlineUsers, getAllUsers]);
 
-  const navigate = useNavigate();
   return (
     <div className={`sidebar-container ${selectedUser ? "shouldHide" : ""}`}>
       <div style={{ paddingBottom: "5px" }}>
         <div className="sidebar-wrapper">
-          <img src={assets.logo} alt="logo" style={{ maxWidth: "10rem" }} />
+          <div className="sidebarLogoWrapper">
+            <img src={assets.logo} alt="logo" style={{ maxWidth: "2.8rem" }} />
+            <span>QuickChat</span>
+          </div>
           <div className="menu group">
-            <img
-              src={assets.menu_icon}
-              alt="menu"
-              style={{
-                maxHeight: "1.25rem",
-                cursor: "pointer",
-              }}
-            />
+            <img src={assets.menu_icon} alt="menu" className="menuIcon" />
             <div className="subMenu">
               <p onClick={() => navigate("/profile")}>Edit Profile</p>
+              <hr className="subMenuDivider" />
+              <p onClick={() => toggleTheme()}>
+                {theme === "dark" ? "Light" : "Dark"} Mode
+              </p>
               <hr className="subMenuDivider" />
               <p onClick={() => logout()}>Logout</p>
             </div>

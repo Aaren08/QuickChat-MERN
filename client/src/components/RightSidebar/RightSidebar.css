@@ -1,5 +1,4 @@
 .userProfileContainer {
-  color: #fff;
   position: relative;
   overflow-y: scroll;
   width: 100%;
@@ -52,6 +51,7 @@
   padding-right: 2.5rem;
   margin-left: auto;
   margin-right: auto;
+  font-size: 14px;
 }
 
 /* USER MEDIA */

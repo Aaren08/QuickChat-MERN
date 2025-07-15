@@ -1,10 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 
+:root {
+  --bg-color: #000;
+  --text-color: #fff;
+  --bg-image: url("./darkBg.svg");
+  --selectedUser-color: rgba(40, 33, 66, 0.5);
+  --iconsInvert: invert(0);
+  --inputBar-color: rgba(243, 244, 246, 0.12);
+}
+
+/* LIGHT MODE */
+
+[data-theme="light"] {
+  --bg-color: #fff;
+  --text-color: #000;
+  --bg-image: url("./lightBg.svg");
+  --selectedUser-color: rgba(40, 33, 66, 0.2);
+  --iconsInvert: invert(1);
+  --inputBar-color: rgba(200, 200, 200, 0.5);
+}
+
 * {
   font-family: "Outfit", sans-serif;
   margin: 0;
   padding: 0;
-  color: #fff;
   box-sizing: border-box;
 }
 
@@ -13,11 +32,13 @@ html {
   overflow-x: hidden;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
-  background-color: #000;
-  background: url("./assets/bgImage.svg");
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  background-image: var(--bg-image);
   background-size: contain;
   width: 100%;
   height: 100vh;
+  transition: background-color 0.3s, color 0.3s, background-image 0.3s;
 }
 
 ::-webkit-scrollbar {

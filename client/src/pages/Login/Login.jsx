@@ -34,7 +34,10 @@ const Login = () => {
   return (
     <div className="loginPage">
       {/* LEFT */}
-      <img src={assets.logo_big} alt="image" className="leftLoginImage" />
+      <div className="logoWrapper">
+        <img src={assets.logo} alt="image" className="leftLoginImage" />
+        <span className="logoText">QuickChat</span>
+      </div>
 
       {/* RIGHT */}
       <form onSubmit={onSubmitHandler} className="loginForm">

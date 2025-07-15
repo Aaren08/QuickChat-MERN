@@ -169,7 +169,7 @@ const ChatContainer = () => {
     </div>
   ) : (
     <div className="chatContainer2">
-      <img src={assets.logo_icon} alt="image" style={{ maxWidth: "4rem" }} />
+      <img src={assets.logo} alt="image" style={{ maxWidth: "4rem" }} />
       <p>Chat anytime, anywhere</p>
     </div>
   );

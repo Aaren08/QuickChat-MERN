@@ -134,7 +134,7 @@ const Profile = () => {
 
         {/* RIGHT */}
         <img
-          src={authUser?.profilePic || assets.logo_icon}
+          src={authUser?.profilePic || assets.logo}
           alt="image"
           className="appLogo"
         />
