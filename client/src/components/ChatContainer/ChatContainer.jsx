@@ -5,7 +5,7 @@ import ChatContext from "../../../context/chatCon.js";
 import AuthContext from "../../../context/authCon.js";
 import TypingContext from "../../../context/typingCon.js";
 import { formatMessageTime } from "../../lib/utils.js";
-import "./chatContainer.css";
+import "./ChatContainer.css";
 
 const ChatContainer = () => {
   const { authUser, onlineUsers } = useContext(AuthContext);
