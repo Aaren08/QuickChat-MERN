@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
-import AuthContext from "../../../context/authContext.js";
-import ChatContext from "../../../context/chatContext.js";
-import TypingContext from "../../../context/typingContext.js";
-import ThemeContext from "../../../context/themeContext.js";
+import AuthContext from "../../../context/authCon.js";
+import ChatContext from "../../../context/chatCon.js";
+import TypingContext from "../../../context/typingCon.js";
+import ThemeContext from "../../../context/themeCon.js";
 import assets from "../../assets/assets.js";
 import "./Sidebar.css";
 

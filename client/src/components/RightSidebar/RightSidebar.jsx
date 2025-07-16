@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import ChatContext from "../../../context/chatContext.js";
-import AuthContext from "../../../context/authContext.js";
+import ChatContext from "../../../context/chatCon.js";
+import AuthContext from "../../../context/authCon.js";
 import assets from "../../assets/assets.js";
 import "./RightSidebar.css";
 

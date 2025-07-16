@@ -4,7 +4,7 @@ import { useContext } from "react";
 import HomePage from "./pages/HomePage";
 import Login from "./pages/Login/Login";
 import Profile from "./pages//Profile/Profile";
-import AuthContext from "../context/authContext.js";
+import AuthContext from "../context/authCon.js";
 
 const App = () => {
   const { authUser } = useContext(AuthContext);

@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
-import AuthContext from "../../../context/authContext.js";
+import AuthContext from "../../../context/authCon.js";
 import assets from "../../assets/assets.js";
 import "./Login.css";
 

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import assets from "../../assets/assets.js";
-import ChatContext from "../../../context/chatContext.js";
-import AuthContext from "../../../context/authContext.js";
-import TypingContext from "../../../context/typingContext.js";
+import ChatContext from "../../../context/chatCon.js";
+import AuthContext from "../../../context/authCon.js";
+import TypingContext from "../../../context/typingCon.js";
 import { formatMessageTime } from "../../lib/utils.js";
 import "./chatContainer.css";
 

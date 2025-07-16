@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect, useCallback } from "react";
 import toast from "react-hot-toast";
 import { io } from "socket.io-client";
-import AuthContext from "./authContext.js";
+import AuthContext from "./authCon.js";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 axios.defaults.baseURL = backendUrl;

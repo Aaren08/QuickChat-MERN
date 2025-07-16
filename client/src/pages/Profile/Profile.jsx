@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import ImageCropper from "../../utilities/ImageCropper/ImageCropper.jsx";
-import AuthContext from "../../../context/authContext.js";
+import AuthContext from "../../../context/authCon.js";
 import assets from "../../assets/assets.js";
 import Spinner from "../../utilities/Spinner/Spinner.jsx";
 import "./Profile.css";

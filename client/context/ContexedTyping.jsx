@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import TypingContext from "./typingContext.js";
-import AuthContext from "./authContext.js";
+import TypingContext from "./typingCon.js";
+import AuthContext from "./authCon.js";
 
 export const TypingProvider = ({ children }) => {
   const { authUser, socket } = useContext(AuthContext);
