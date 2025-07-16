@@ -3,7 +3,7 @@
 :root {
   --bg-color: #000;
   --text-color: #fff;
-  --bg-image: url("./darkBg.svg");
+  --bg-image: url("/darkBg.svg");
   --selectedUser-color: rgba(40, 33, 66, 0.5);
   --iconsInvert: invert(0);
   --inputBar-color: rgba(243, 244, 246, 0.12);
@@ -14,7 +14,7 @@
 [data-theme="light"] {
   --bg-color: #fff;
   --text-color: #000;
-  --bg-image: url("./lightBg.svg");
+  --bg-image: url("/lightBg.svg");
   --selectedUser-color: rgba(40, 33, 66, 0.2);
   --iconsInvert: invert(1);
   --inputBar-color: rgba(200, 200, 200, 0.5);
