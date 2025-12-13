@@ -1,4 +1,4 @@
-# QuickChat — QuickChat-MERN
+# QuickChat 
 
 QuickChat is a lightweight real-time chat application built with the MERN stack (MongoDB, Express, React, Node) and Socket.IO for real-time features. It supports user signup/login, profile editing (with image upload via Cloudinary), one-to-one messaging with image support, typing indicators, presence (online/offline), and unseen message counts.
 
